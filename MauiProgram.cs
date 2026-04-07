@@ -22,14 +22,16 @@ public static class MauiProgram
         builder.Services.AddSingleton<IStatisticsService, StatisticsService>();
 
         // 注册 ViewModel
-        builder.Services.AddTransient<ViewModels.MainViewModel>();
+        builder.Services.AddTransient<ViewModels.HomeViewModel>();
         builder.Services.AddTransient<ViewModels.CarModelViewModel>();
         builder.Services.AddTransient<ViewModels.StatisticsViewModel>();
+        builder.Services.AddTransient<ViewModels.SettingsViewModel>();
 
         // 注册页面
-        builder.Services.AddTransient<Views.MainPage>();
+        builder.Services.AddTransient<Views.HomePage>();
         builder.Services.AddTransient<Views.CarModelPage>();
         builder.Services.AddTransient<Views.StatisticsPage>();
+        builder.Services.AddTransient<Views.SettingsPage>();
 
 #if ANDROID
         builder.ConfigureLifecycleEvents(events =>
@@ -46,6 +48,9 @@ public static class MauiProgram
         // 初始化数据库
         var dbService = app.Services.GetRequiredService<IDatabaseService>();
         _ = dbService.GetAllAsync();
+
+        // 设置主页面为 Shell
+        Microsoft.Maui.Controls.Application.Current.MainPage = new AppShell();
 
         return app;
     }

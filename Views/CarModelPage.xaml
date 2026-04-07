@@ -3,62 +3,265 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CarModelTracker.Views.CarModelPage"
              xmlns:vm="clr-namespace:CarModelTracker.ViewModels"
-             Title="添加/编辑车模">
+             Title="添加车模"
+             BackgroundColor="{StaticResource Background}">
 
-    <ContentPage.ToolbarItems>
-        <ToolbarItem Text="保存" Command="{Binding SaveCommand}" />
-    </ContentPage.ToolbarItems>
+    <!-- 导航栏标题 -->
+    <ContentPage.TitleView>
+        <HorizontalStackLayout Spacing="10" VerticalOptions="Center">
+            <Label Text="🚗" FontSize="20" VerticalOptions="Center" />
+            <Label Text="添加车模" 
+                   TextColor="{StaticResource White}" 
+                   FontSize="20" 
+                   FontAttributes="Bold"
+                   VerticalOptions="Center" />
+        </HorizontalStackLayout>
+    </ContentPage.TitleView>
 
-    <ScrollView>
-        <VerticalStackLayout Padding="20" Spacing="15">
-            <!-- 品牌 -->
-            <Label Text="品牌 *" FontAttributes="Bold" />
-            <Entry Text="{Binding Brand}" Placeholder="例如：AutoArt, Minichamps" />
+    <ScrollView BackgroundColor="{StaticResource Background}">
+        <VerticalStackLayout Padding="16" Spacing="16">
+            
+            <!-- 车模图片上传卡片 -->
+            <Frame BackgroundColor="{StaticResource CardBackground}"
+                   CornerRadius="12"
+                   HasShadow="True"
+                   Padding="16">
+                <VerticalStackLayout Spacing="12">
+                    <Label Text="车模图片"
+                           FontSize="16"
+                           FontAttributes="Bold"
+                           TextColor="{StaticResource TextPrimary}" />
+                    
+                    <Border Stroke="{StaticResource Gray300}"
+                            StrokeShape="RoundRectangle 12"
+                            StrokeThickness="2"
+                            BackgroundColor="{StaticResource Gray50}"
+                            HeightRequest="200"
+                            HorizontalOptions="Fill">
+                        <VerticalStackLayout HorizontalOptions="Center" 
+                                             VerticalOptions="Center"
+                                             Spacing="8">
+                            <Label Text="📷"
+                                   FontSize="48"
+                                   HorizontalOptions="Center"
+                                   Opacity="0.5" />
+                            <Label Text="点击上传图片"
+                                   FontSize="14"
+                                   TextColor="{StaticResource TextSecondary}"
+                                   HorizontalOptions="Center" />
+                        </VerticalStackLayout>
+                    </Border>
+                </VerticalStackLayout>
+            </Frame>
 
-            <!-- 车型名称 -->
-            <Label Text="车型名称 *" FontAttributes="Bold" />
-            <Entry Text="{Binding ModelName}" Placeholder="例如：Porsche 911 GT3" />
+            <!-- 基本信息卡片 -->
+            <Frame BackgroundColor="{StaticResource CardBackground}"
+                   CornerRadius="12"
+                   HasShadow="True"
+                   Padding="16">
+                <VerticalStackLayout Spacing="16">
+                    <HorizontalStackLayout Spacing="8">
+                        <Label Text="ℹ️" 
+                               FontSize="20"
+                               VerticalOptions="Center" />
+                        <Label Text="基本信息"
+                               FontSize="18"
+                               FontAttributes="Bold"
+                               TextColor="{StaticResource Primary}"
+                               VerticalOptions="Center" />
+                    </HorizontalStackLayout>
+                    
+                    <!-- 车模名称 -->
+                    <VerticalStackLayout Spacing="6">
+                        <HorizontalStackLayout Spacing="4">
+                            <Label Text="车模名称"
+                                   FontSize="14"
+                                   TextColor="{StaticResource TextSecondary}" />
+                            <Label Text="*"
+                                   TextColor="{StaticResource Error}"
+                                   FontSize="14" />
+                        </HorizontalStackLayout>
+                        <Border Stroke="{StaticResource Gray300}"
+                                StrokeShape="RoundRectangle 12"
+                                StrokeThickness="1"
+                                BackgroundColor="{StaticResource White}"
+                                Padding="16,0">
+                            <Entry Text="{Binding ModelName}"
+                                   Placeholder="例如：法拉利 F40"
+                                   BackgroundColor="Transparent"
+                                   Margin="0" />
+                        </Border>
+                    </VerticalStackLayout>
 
-            <!-- 比例 -->
-            <Label Text="比例" FontAttributes="Bold" />
-            <Picker ItemsSource="{Binding Scales}"
-                    SelectedItem="{Binding Scale}" />
+                    <!-- 品牌 -->
+                    <VerticalStackLayout Spacing="6">
+                        <HorizontalStackLayout Spacing="4">
+                            <Label Text="品牌"
+                                   FontSize="14"
+                                   TextColor="{StaticResource TextSecondary}" />
+                            <Label Text="*"
+                                   TextColor="{StaticResource Error}"
+                                   FontSize="14" />
+                        </HorizontalStackLayout>
+                        <Border Stroke="{StaticResource Gray300}"
+                                StrokeShape="RoundRectangle 12"
+                                StrokeThickness="1"
+                                BackgroundColor="{StaticResource White}"
+                                Padding="16,0">
+                            <Entry Text="{Binding Brand}"
+                                   Placeholder="例如：法拉利、奔驰、宝马"
+                                   BackgroundColor="Transparent"
+                                   Margin="0" />
+                        </Border>
+                    </VerticalStackLayout>
 
-            <!-- 颜色 -->
-            <Label Text="颜色" FontAttributes="Bold" />
-            <Entry Text="{Binding Color}" Placeholder="例如：红色，蓝色" />
+                    <!-- 型号 -->
+                    <VerticalStackLayout Spacing="6">
+                        <Label Text="型号"
+                               FontSize="14"
+                               TextColor="{StaticResource TextSecondary}" />
+                        <Border Stroke="{StaticResource Gray300}"
+                                StrokeShape="RoundRectangle 12"
+                                StrokeThickness="1"
+                                BackgroundColor="{StaticResource White}"
+                                Padding="16,0">
+                            <Entry Text="{Binding ModelName}"
+                                   Placeholder="例如：F40 LM"
+                                   BackgroundColor="Transparent"
+                                   Margin="0" />
+                        </Border>
+                    </VerticalStackLayout>
 
-            <!-- 购买日期 -->
-            <Label Text="购买日期" FontAttributes="Bold" />
-            <DatePicker Date="{Binding PurchaseDate}" />
+                    <!-- 比例 -->
+                    <VerticalStackLayout Spacing="6">
+                        <Label Text="比例"
+                               FontSize="14"
+                               TextColor="{StaticResource TextSecondary}" />
+                        <Border Stroke="{StaticResource Gray300}"
+                                StrokeShape="RoundRectangle 12"
+                                StrokeThickness="1"
+                                BackgroundColor="{StaticResource White}"
+                                Padding="16,0">
+                            <Picker ItemsSource="{Binding Scales}"
+                                    SelectedItem="{Binding Scale}"
+                                    Margin="0" />
+                        </Border>
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
+            </Frame>
 
-            <!-- 购买价格 -->
-            <Label Text="购买价格" FontAttributes="Bold" />
-            <Entry Text="{Binding PurchasePrice}"
-                   Placeholder="0.00"
-                   Keyboard="Numeric" />
+            <!-- 购买信息卡片 -->
+            <Frame BackgroundColor="{StaticResource CardBackground}"
+                   CornerRadius="12"
+                   HasShadow="True"
+                   Padding="16">
+                <VerticalStackLayout Spacing="16">
+                    <HorizontalStackLayout Spacing="8">
+                        <Label Text="🛒" 
+                               FontSize="20"
+                               VerticalOptions="Center" />
+                        <Label Text="购买信息"
+                               FontSize="18"
+                               FontAttributes="Bold"
+                               TextColor="{StaticResource Primary}"
+                               VerticalOptions="Center" />
+                    </HorizontalStackLayout>
+                    
+                    <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
+                        <!-- 购买价格 -->
+                        <VerticalStackLayout Spacing="6">
+                            <Label Text="购买价格"
+                                   FontSize="14"
+                                   TextColor="{StaticResource TextSecondary}" />
+                            <Border Stroke="{StaticResource Gray300}"
+                                    StrokeShape="RoundRectangle 12"
+                                    StrokeThickness="1"
+                                    BackgroundColor="{StaticResource White}"
+                                    Padding="16,0">
+                                <Grid ColumnDefinitions="*,Auto" ColumnSpacing="8">
+                                    <Entry Grid.Column="0"
+                                           Text="{Binding PurchasePrice}"
+                                           Placeholder="0.00"
+                                           Keyboard="Numeric"
+                                           BackgroundColor="Transparent"
+                                           Margin="0" />
+                                    <Label Grid.Column="1"
+                                           Text="¥"
+                                           VerticalOptions="Center"
+                                           TextColor="{StaticResource TextSecondary}" />
+                                </Grid>
+                            </Border>
+                        </VerticalStackLayout>
+                        
+                        <!-- 数量 -->
+                        <VerticalStackLayout Grid.Column="1" Spacing="6">
+                            <Label Text="数量"
+                                   FontSize="14"
+                                   TextColor="{StaticResource TextSecondary}" />
+                            <Border Stroke="{StaticResource Gray300}"
+                                    StrokeShape="RoundRectangle 12"
+                                    StrokeThickness="1"
+                                    BackgroundColor="{StaticResource White}"
+                                    Padding="16,0">
+                                <Entry Text="{Binding Quantity}"
+                                       Keyboard="Numeric"
+                                       Placeholder="1"
+                                       BackgroundColor="Transparent"
+                                       Margin="0" />
+                            </Border>
+                        </VerticalStackLayout>
+                    </Grid>
 
-            <!-- 数量 -->
-            <Label Text="数量" FontAttributes="Bold" />
-            <Entry Text="{Binding Quantity}"
-                   Keyboard="Numeric" />
+                    <!-- 购买日期 -->
+                    <VerticalStackLayout Spacing="6">
+                        <Label Text="购买日期"
+                               FontSize="14"
+                               TextColor="{StaticResource TextSecondary}" />
+                        <Border Stroke="{StaticResource Gray300}"
+                                StrokeShape="RoundRectangle 12"
+                                StrokeThickness="1"
+                                BackgroundColor="{StaticResource White}"
+                                Padding="16,0">
+                            <DatePicker Date="{Binding PurchaseDate}"
+                                        Format="yyyy 年 MM 月 dd 日"
+                                        Margin="0" />
+                        </Border>
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
+            </Frame>
 
-            <!-- 备注 -->
-            <Label Text="备注" FontAttributes="Bold" />
-            <Editor Text="{Binding Notes}"
-                    HeightRequest="100"
-                    Placeholder="输入备注信息..." />
+            <!-- 备注卡片 -->
+            <Frame BackgroundColor="{StaticResource CardBackground}"
+                   CornerRadius="12"
+                   HasShadow="True"
+                   Padding="16">
+                <VerticalStackLayout Spacing="6">
+                    <Label Text="备注"
+                           FontSize="14"
+                           TextColor="{StaticResource TextSecondary}" />
+                    <Border Stroke="{StaticResource Gray300}"
+                            StrokeShape="RoundRectangle 12"
+                            StrokeThickness="1"
+                            BackgroundColor="{StaticResource White}"
+                            Padding="16,8">
+                        <Editor Text="{Binding Notes}"
+                                HeightRequest="120"
+                                Placeholder="记录车模的详细信息、收藏心得等..."
+                                BackgroundColor="Transparent"
+                                Margin="0" />
+                    </Border>
+                </VerticalStackLayout>
+            </Frame>
 
-            <!-- 保存和取消按钮 -->
-            <HorizontalStackLayout Spacing="20" HorizontalOptions="Center" Margin="0,20,0,0">
-                <Button Text="保存"
-                        Command="{Binding SaveCommand}"
-                        Padding="30,10" />
-                <Button Text="取消"
-                        Command="{Binding CancelCommand}"
-                        Padding="30,10"
-                        BackgroundColor="Gray" />
-            </HorizontalStackLayout>
+            <!-- 保存按钮 -->
+            <Button Text="保存"
+                    Command="{Binding SaveCommand}"
+                    BackgroundColor="{StaticResource Primary}"
+                    CornerRadius="12"
+                    Padding="40,14"
+                    FontSize="16"
+                    HorizontalOptions="Fill"
+                    Margin="0,8,0,20" />
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

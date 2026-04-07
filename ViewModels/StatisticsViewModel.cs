@@ -19,6 +19,28 @@ public partial class StatisticsViewModel : ObservableObject
 
     [ObservableProperty]
     private string _scaleStatistics = string.Empty;
+    
+    // 快速统计属性
+    [ObservableProperty]
+    private decimal _avgPrice;
+    
+    [ObservableProperty]
+    private decimal _minPrice;
+    
+    [ObservableProperty]
+    private decimal _maxPrice;
+    
+    [ObservableProperty]
+    private string _earliestDate = string.Empty;
+    
+    [ObservableProperty]
+    private int _brandCount;
+    
+    [ObservableProperty]
+    private string _mostScale = string.Empty;
+    
+    [ObservableProperty]
+    private int _weekAdded;
 
     [ObservableProperty]
     private bool _isRefreshing;
@@ -38,22 +60,44 @@ public partial class StatisticsViewModel : ObservableObject
 
             TotalCount = stats.TotalCount;
             TotalValue = stats.TotalValue;
+            
+            // 快速统计
+            AvgPrice = stats.AvgPrice;
+            MinPrice = stats.MinPrice;
+            MaxPrice = stats.MaxPrice;
+            EarliestDate = stats.EarliestDate.HasValue ? stats.EarliestDate.Value.ToString("yy 年") : "-";
+            BrandCount = stats.BrandCount;
+            MostScale = stats.MostScale;
 
             // 品牌统计
             var brandText = new System.Text.StringBuilder();
-            foreach (var kvp in stats.BrandCounts.OrderByDescending(x => x.Value))
+            if (stats.BrandCounts.Count == 0)
             {
-                brandText.AppendLine($"{kvp.Key}: {kvp.Value} 个");
+                BrandStatistics = "暂无数据";
             }
-            BrandStatistics = brandText.ToString();
+            else
+            {
+                foreach (var kvp in stats.BrandCounts.OrderByDescending(x => x.Value))
+                {
+                    brandText.AppendLine($"{kvp.Key}: {kvp.Value} 个");
+                }
+                BrandStatistics = brandText.ToString();
+            }
 
             // 比例统计
             var scaleText = new System.Text.StringBuilder();
-            foreach (var kvp in stats.ScaleCounts.OrderByDescending(x => x.Value))
+            if (stats.ScaleCounts.Count == 0)
             {
-                scaleText.AppendLine($"{kvp.Key}: {kvp.Value} 个");
+                ScaleStatistics = "暂无数据";
             }
-            ScaleStatistics = scaleText.ToString();
+            else
+            {
+                foreach (var kvp in stats.ScaleCounts.OrderByDescending(x => x.Value))
+                {
+                    scaleText.AppendLine($"{kvp.Key}: {kvp.Value} 个");
+                }
+                ScaleStatistics = scaleText.ToString();
+            }
         }
         catch (Exception ex)
         {

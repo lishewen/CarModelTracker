@@ -3,55 +3,221 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CarModelTracker.Views.StatisticsPage"
              xmlns:vm="clr-namespace:CarModelTracker.ViewModels"
-             Title="统计概览">
+             Title="收藏统计"
+             BackgroundColor="{StaticResource Background}">
 
-    <ContentPage.ToolbarItems>
-        <ToolbarItem Text="刷新" Command="{Binding LoadStatisticsCommand}" />
-    </ContentPage.ToolbarItems>
+    <!-- 导航栏标题 -->
+    <ContentPage.TitleView>
+        <HorizontalStackLayout Spacing="10" VerticalOptions="Center">
+            <Label Text="📊" FontSize="24" VerticalOptions="Center" />
+            <Label Text="收藏统计" 
+                   TextColor="{StaticResource White}" 
+                   FontSize="22" 
+                   FontAttributes="Bold"
+                   VerticalOptions="Center" />
+        </HorizontalStackLayout>
+    </ContentPage.TitleView>
 
-    <ScrollView>
-        <VerticalStackLayout Padding="20" Spacing="20">
-            <!-- 总计卡片 -->
-            <Frame HasShadow="True" Padding="20" BackgroundColor="LightBlue">
-                <VerticalStackLayout Spacing="10">
-                    <Label Text="总数量" FontSize="14" TextColor="Gray" />
-                    <Label Text="{Binding TotalCount, StringFormat='{0} 个'}"
-                           FontSize="32"
-                           FontAttributes="Bold" />
+    <ScrollView BackgroundColor="{StaticResource Background}">
+        <VerticalStackLayout Padding="16" Spacing="16">
+            
+            <!-- 主要统计卡片 -->
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
+                <!-- 收藏总数 -->
+                <Frame BackgroundColor="{StaticResource StatsBlue}"
+                       CornerRadius="12"
+                       HasShadow="True"
+                       Padding="20">
+                    <VerticalStackLayout Spacing="8" HorizontalOptions="Center">
+                        <Label Text="{Binding TotalCount, StringFormat='{0}'}"
+                               TextColor="{StaticResource Accent}"
+                               FontSize="36"
+                               FontAttributes="Bold"
+                               HorizontalOptions="Center" />
+                        <Label Text="收藏总数"
+                               TextColor="{StaticResource White}"
+                               FontSize="14"
+                               HorizontalOptions="Center" />
+                    </VerticalStackLayout>
+                </Frame>
 
+                <!-- 收藏总值 -->
+                <Frame Grid.Column="1"
+                       CornerRadius="12"
+                       HasShadow="True"
+                       Padding="20">
+                    <Frame.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                            <GradientStop Color="{StaticResource GradientYellowStart}" Offset="0.0" />
+                            <GradientStop Color="{StaticResource GradientYellowEnd}" Offset="1.0" />
+                        </LinearGradientBrush>
+                    </Frame.Background>
+                    <VerticalStackLayout Spacing="8" HorizontalOptions="Center">
+                        <Label Text="{Binding TotalValue, StringFormat='¥{0:F0}'}"
+                               TextColor="{StaticResource White}"
+                               FontSize="28"
+                               FontAttributes="Bold"
+                               HorizontalOptions="Center" />
+                        <Label Text="收藏总值"
+                               TextColor="{StaticResource White}"
+                               FontSize="14"
+                               HorizontalOptions="Center" />
+                    </VerticalStackLayout>
+                </Frame>
+            </Grid>
+
+            <!-- 次要统计卡片 -->
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
+                <!-- 品牌数量 -->
+                <Frame BackgroundColor="{StaticResource CardBackground}"
+                       CornerRadius="12"
+                       HasShadow="True"
+                       Padding="20">
+                    <VerticalStackLayout Spacing="8" HorizontalOptions="Center">
+                        <Label Text="{Binding BrandCount, StringFormat='{0}'}"
+                               TextColor="{StaticResource Primary}"
+                               FontSize="32"
+                               FontAttributes="Bold"
+                               HorizontalOptions="Center" />
+                        <Label Text="品牌数量"
+                               TextColor="{StaticResource TextSecondary}"
+                               FontSize="14"
+                               HorizontalOptions="Center" />
+                    </VerticalStackLayout>
+                </Frame>
+
+                <!-- 本周新增 -->
+                <Frame Grid.Column="1"
+                       BackgroundColor="{StaticResource CardBackground}"
+                       CornerRadius="12"
+                       HasShadow="True"
+                       Padding="20">
+                    <VerticalStackLayout Spacing="8" HorizontalOptions="Center">
+                        <Label Text="{Binding WeekAdded, StringFormat='{0}'}"
+                               TextColor="{StaticResource Primary}"
+                               FontSize="32"
+                               FontAttributes="Bold"
+                               HorizontalOptions="Center" />
+                        <Label Text="本周新增"
+                               TextColor="{StaticResource TextSecondary}"
+                               FontSize="14"
+                               HorizontalOptions="Center" />
+                    </VerticalStackLayout>
+                </Frame>
+            </Grid>
+
+            <!-- 品牌分布 -->
+            <Frame BackgroundColor="{StaticResource CardBackground}"
+                   CornerRadius="12"
+                   HasShadow="True"
+                   Padding="16">
+                <VerticalStackLayout Spacing="12">
+                    <HorizontalStackLayout Spacing="8">
+                        <Label Text="📋" 
+                               FontSize="18"
+                               VerticalOptions="Center" />
+                        <Label Text="品牌分布"
+                               FontSize="16"
+                               FontAttributes="Bold"
+                               TextColor="{StaticResource Primary}"
+                               VerticalOptions="Center" />
+                    </HorizontalStackLayout>
+                    
                     <BoxView HeightRequest="1"
-                             BackgroundColor="Gray"
-                             Margin="0,10" />
-
-                    <Label Text="总价值" FontSize="14" TextColor="Gray" />
-                    <Label Text="{Binding TotalValue, StringFormat='¥{0:F2}'}"
-                           FontSize="24"
-                           FontAttributes="Bold"
-                           TextColor="Green" />
-                </VerticalStackLayout>
-            </Frame>
-
-            <!-- 按品牌分组 -->
-            <Frame HasShadow="True" Padding="15">
-                <VerticalStackLayout Spacing="10">
-                    <Label Text="按品牌分组"
-                           FontSize="18"
-                           FontAttributes="Bold"
-                           TextColor="Blue" />
+                             BackgroundColor="{StaticResource Gray200}"
+                             Margin="0,4" />
+                    
                     <Label Text="{Binding BrandStatistics}"
-                           LineBreakMode="WordWrap" />
+                           TextColor="{StaticResource TextSecondary}"
+                           LineBreakMode="WordWrap"
+                           Margin="0,8" />
                 </VerticalStackLayout>
             </Frame>
 
-            <!-- 按比例分组 -->
-            <Frame HasShadow="True" Padding="15">
-                <VerticalStackLayout Spacing="10">
-                    <Label Text="按比例分组"
-                           FontSize="18"
-                           FontAttributes="Bold"
-                           TextColor="Blue" />
+            <!-- 比例分布 -->
+            <Frame BackgroundColor="{StaticResource CardBackground}"
+                   CornerRadius="12"
+                   HasShadow="True"
+                   Padding="16">
+                <VerticalStackLayout Spacing="12">
+                    <HorizontalStackLayout Spacing="8">
+                        <Label Text="📏" 
+                               FontSize="18"
+                               VerticalOptions="Center" />
+                        <Label Text="比例分布"
+                               FontSize="16"
+                               FontAttributes="Bold"
+                               TextColor="{StaticResource Primary}"
+                               VerticalOptions="Center" />
+                    </HorizontalStackLayout>
+                    
+                    <BoxView HeightRequest="1"
+                             BackgroundColor="{StaticResource Gray200}"
+                             Margin="0,4" />
+                    
                     <Label Text="{Binding ScaleStatistics}"
-                           LineBreakMode="WordWrap" />
+                           TextColor="{StaticResource TextSecondary}"
+                           LineBreakMode="WordWrap"
+                           Margin="0,8" />
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- 价格区间 -->
+            <Frame BackgroundColor="{StaticResource CardBackground}"
+                   CornerRadius="12"
+                   HasShadow="True"
+                   Padding="16">
+                <VerticalStackLayout Spacing="12">
+                    <HorizontalStackLayout Spacing="8">
+                        <Label Text="💰" 
+                               FontSize="18"
+                               VerticalOptions="Center" />
+                        <Label Text="价格区间"
+                               FontSize="16"
+                               FontAttributes="Bold"
+                               TextColor="{StaticResource Primary}"
+                               VerticalOptions="Center" />
+                    </HorizontalStackLayout>
+                    
+                    <BoxView HeightRequest="1"
+                             BackgroundColor="{StaticResource Gray200}"
+                             Margin="0,4" />
+                    
+                    <Grid ColumnDefinitions="*,*,*" ColumnSpacing="8">
+                        <VerticalStackLayout Spacing="4">
+                            <Label Text="最低"
+                                   FontSize="12"
+                                   TextColor="{StaticResource TextSecondary}"
+                                   HorizontalOptions="Center" />
+                            <Label Text="{Binding MinPrice, StringFormat='¥{0:F0}'}"
+                                   FontSize="16"
+                                   FontAttributes="Bold"
+                                   TextColor="{StaticResource Primary}"
+                                   HorizontalOptions="Center" />
+                        </VerticalStackLayout>
+                        <VerticalStackLayout Grid.Column="1" Spacing="4">
+                            <Label Text="平均"
+                                   FontSize="12"
+                                   TextColor="{StaticResource TextSecondary}"
+                                   HorizontalOptions="Center" />
+                            <Label Text="{Binding AvgPrice, StringFormat='¥{0:F0}'}"
+                                   FontSize="16"
+                                   FontAttributes="Bold"
+                                   TextColor="{StaticResource Primary}"
+                                   HorizontalOptions="Center" />
+                        </VerticalStackLayout>
+                        <VerticalStackLayout Grid.Column="2" Spacing="4">
+                            <Label Text="最高"
+                                   FontSize="12"
+                                   TextColor="{StaticResource TextSecondary}"
+                                   HorizontalOptions="Center" />
+                            <Label Text="{Binding MaxPrice, StringFormat='¥{0:F0}'}"
+                                   FontSize="16"
+                                   FontAttributes="Bold"
+                                   TextColor="{StaticResource Primary}"
+                                   HorizontalOptions="Center" />
+                        </VerticalStackLayout>
+                    </Grid>
                 </VerticalStackLayout>
             </Frame>
         </VerticalStackLayout>

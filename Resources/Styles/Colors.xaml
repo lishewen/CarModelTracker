@@ -4,21 +4,69 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
-    <Color x:Key="Primary">#512BD4</Color>
-    <Color x:Key="Secondary">#DFD8F7</Color>
-    <Color x:Key="Tertiary">#2B0B98</Color>
-    <Color x:Key="White">White</Color>
-    <Color x:Key="Black">Black</Color>
-    <Color x:Key="Gray100">#E1E1E1</Color>
-    <Color x:Key="Gray200">#C8C8C8</Color>
-    <Color x:Key="Gray300">#ACACAC</Color>
-    <Color x:Key="Gray400">#919191</Color>
-    <Color x:Key="Gray500">#6E6E6E</Color>
-    <Color x:Key="Gray600">#404040</Color>
+    <!-- 主色调 - 设计图深蓝色主题 -->
+    <Color x:Key="Primary">#1E2A78</Color>
+    <Color x:Key="PrimaryDark">#151E5C</Color>
+    <Color x:Key="PrimaryLight">#3D4A9E</Color>
+    <Color x:Key="PrimaryLighter">#E8EAF6</Color>
+    
+    <!-- 强调色 - 金色/黄色 -->
+    <Color x:Key="Accent">#FFD700</Color>
+    <Color x:Key="AccentLight">#FFF3B0</Color>
+    <Color x:Key="AccentDark">#FFA000</Color>
+    
+    <!-- 渐变色 -->
+    <Color x:Key="GradientYellowStart">#FFC107</Color>
+    <Color x:Key="GradientYellowEnd">#FF9800</Color>
+    
+    <!-- 背景色 -->
+    <Color x:Key="Background">#F5F7FA</Color>
+    <Color x:Key="CardBackground">#FFFFFF</Color>
+    <Color x:Key="Surface">#FFFFFF</Color>
+    
+    <!-- 文本色 -->
+    <Color x:Key="TextPrimary">#212121</Color>
+    <Color x:Key="TextSecondary">#757575</Color>
+    <Color x:Key="TextDisabled">#BDBDBD</Color>
+    <Color x:Key="TextOnPrimary">#FFFFFF</Color>
+    <Color x:Key="TextOnAccent">#212121</Color>
+    
+    <!-- 基础色 -->
+    <Color x:Key="White">#FFFFFF</Color>
+    <Color x:Key="Black">#000000</Color>
+    
+    <!-- 灰色系 -->
+    <Color x:Key="Gray50">#FAFAFA</Color>
+    <Color x:Key="Gray100">#F5F5F5</Color>
+    <Color x:Key="Gray200">#EEEEEE</Color>
+    <Color x:Key="Gray300">#E0E0E0</Color>
+    <Color x:Key="Gray400">#BDBDBD</Color>
+    <Color x:Key="Gray500">#9E9E9E</Color>
+    <Color x:Key="Gray600">#757575</Color>
+    <Color x:Key="Gray700">#616161</Color>
+    <Color x:Key="Gray800">#424242</Color>
     <Color x:Key="Gray900">#212121</Color>
     <Color x:Key="Gray950">#141414</Color>
+    
+    <!-- 语义色 -->
     <Color x:Key="Success">#4CAF50</Color>
+    <Color x:Key="SuccessLight">#E8F5E9</Color>
     <Color x:Key="Warning">#FF9800</Color>
+    <Color x:Key="WarningLight">#FFF3E0</Color>
     <Color x:Key="Error">#F44336</Color>
+    <Color x:Key="ErrorLight">#FFEBEE</Color>
+    <Color x:Key="Info">#2196F3</Color>
+    <Color x:Key="InfoLight">#E3F2FD</Color>
+    
+    <!-- 统计卡片颜色 -->
+    <Color x:Key="StatsBlue">#283593</Color>
+    <Color x:Key="StatsYellow">#FFC107</Color>
+    <Color x:Key="StatsGreen">#43A047</Color>
+    <Color x:Key="StatsPurple">#8E24AA</Color>
+    <Color x:Key="StatsOrange">#F57C00</Color>
+    
+    <!-- 底部导航颜色 -->
+    <Color x:Key="NavBarSelected">#1E2A78</Color>
+    <Color x:Key="NavBarUnselected">#9E9E9E</Color>
 
 </ResourceDictionary>

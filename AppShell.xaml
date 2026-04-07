@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       x:Class="CarModelTracker.AppShell"
+       xmlns:views="clr-namespace:CarModelTracker.Views"
+       Shell.BackgroundColor="{StaticResource Primary}"
+       Shell.TitleColor="{StaticResource White}"
+       Shell.TabBarBackgroundColor="{StaticResource White}"
+       Shell.TabBarTitleColor="{StaticResource NavBarSelected}"
+       Shell.TabBarUnselectedColor="{StaticResource NavBarUnselected}">
+
+    <Shell.Resources>
+        <Style x:Key="BaseStyle" TargetType="Element">
+            <Setter Property="Shell.BackgroundColor" Value="{StaticResource Primary}" />
+            <Setter Property="Shell.TitleColor" Value="{StaticResource White}" />
+            <Setter Property="Shell.TabBarBackgroundColor" Value="{StaticResource White}" />
+            <Setter Property="Shell.TabBarTitleColor" Value="{StaticResource NavBarSelected}" />
+            <Setter Property="Shell.TabBarUnselectedColor" Value="{StaticResource NavBarUnselected}" />
+        </Style>
+    </Shell.Resources>
+
+    <TabBar>
+        <!-- 首页 -->
+        <Tab Title="首页"
+             Icon="fontawesome_home.png">
+            <ShellContent ContentTemplate="{DataTemplate views:HomePage}" />
+        </Tab>
+
+        <!-- 添加 -->
+        <Tab Title="添加"
+             Icon="fontawesome_add.png">
+            <ShellContent ContentTemplate="{DataTemplate views:CarModelPage}" />
+        </Tab>
+
+        <!-- 统计 -->
+        <Tab Title="统计"
+             Icon="fontawesome_stats.png">
+            <ShellContent ContentTemplate="{DataTemplate views:StatisticsPage}" />
+        </Tab>
+
+        <!-- 设置 -->
+        <Tab Title="设置"
+             Icon="fontawesome_settings.png">
+            <ShellContent ContentTemplate="{DataTemplate views:SettingsPage}" />
+        </Tab>
+    </TabBar>
+</Shell>

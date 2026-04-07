@@ -26,13 +26,18 @@ public partial class CarModelViewModel : ObservableObject
     private DateTime _purchaseDate = DateTime.Today;
 
     [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(TotalValue))]
     private decimal _purchasePrice;
 
     [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(TotalValue))]
     private int _quantity = 1;
 
     [ObservableProperty]
     private string _notes = string.Empty;
+    
+    // 计算属性：总价值
+    public decimal TotalValue => PurchasePrice * Quantity;
 
     [ObservableProperty]
     private List<string> _brands = new();

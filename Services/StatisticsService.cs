@@ -8,6 +8,14 @@ public class StatisticsResult
     public decimal TotalValue { get; set; }
     public Dictionary<string, int> BrandCounts { get; set; } = new();
     public Dictionary<string, int> ScaleCounts { get; set; } = new();
+    
+    // 快速统计
+    public decimal AvgPrice { get; set; }
+    public decimal MinPrice { get; set; }
+    public decimal MaxPrice { get; set; }
+    public DateTime? EarliestDate { get; set; }
+    public int BrandCount { get; set; }
+    public string MostScale { get; set; } = string.Empty;
 }
 
 public interface IStatisticsService
@@ -38,11 +46,27 @@ public class StatisticsService : IStatisticsService
         {
             result.BrandCounts[group.Key] = group.Sum(x => x.Quantity);
         }
+        result.BrandCount = result.BrandCounts.Count;
 
         // 按比例分组
         foreach (var group in models.GroupBy(x => x.Scale))
         {
             result.ScaleCounts[group.Key] = group.Sum(x => x.Quantity);
+        }
+        
+        // 最多的比例
+        if (result.ScaleCounts.Count > 0)
+        {
+            result.MostScale = result.ScaleCounts.OrderByDescending(x => x.Value).First().Key;
+        }
+
+        // 平均价格
+        if (models.Count > 0)
+        {
+            result.AvgPrice = models.Average(x => x.PurchasePrice);
+            result.MinPrice = models.Min(x => x.PurchasePrice);
+            result.MaxPrice = models.Max(x => x.PurchasePrice);
+            result.EarliestDate = models.Min(x => x.PurchaseDate);
         }
 
         return result;

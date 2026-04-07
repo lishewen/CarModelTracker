@@ -2,11 +2,11 @@ using CarModelTracker.ViewModels;
 
 namespace CarModelTracker.Views;
 
-public partial class StatisticsPage : ContentPage
+public partial class HomePage : ContentPage
 {
-    private readonly StatisticsViewModel _viewModel;
+    private readonly HomeViewModel _viewModel;
 
-    public StatisticsPage(StatisticsViewModel viewModel)
+    public HomePage(HomeViewModel viewModel)
     {
         InitializeComponent();
         _viewModel = viewModel;
@@ -16,6 +16,6 @@ public partial class StatisticsPage : ContentPage
     protected override void OnAppearing()
     {
         base.OnAppearing();
-        _viewModel.LoadStatisticsCommand.Execute(null);
+        _viewModel.OnCarModelSaved();
     }
 }
