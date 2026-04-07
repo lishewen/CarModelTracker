@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CarModelTracker.Views.MainPage"
+             xmlns:vm="clr-namespace:CarModelTracker.ViewModels"
+             Title="车模收藏管理">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="统计" Command="{Binding NavigateToStatisticsCommand}" />
+        <ToolbarItem Text="导出 Excel" Command="{Binding ExportCommand}" />
+        <ToolbarItem Text="添加" Command="{Binding AddNewCommand}" />
+    </ContentPage.ToolbarItems>
+
+    <Grid RowDefinitions="Auto,Auto,*" RowSpacing="10" Padding="10">
+        <!-- 搜索和筛选区域 -->
+        <VerticalStackLayout Grid.Row="0" Spacing="10">
+            <Grid ColumnDefinitions="*,Auto" ColumnSpacing="10">
+                <Entry Grid.Column="0"
+                       Text="{Binding SearchTerm}"
+                       Placeholder="搜索品牌或车型..."
+                       ReturnCommand="{Binding SearchCommand}" />
+                <Button Grid.Column="1"
+                        Text="搜索"
+                        Command="{Binding SearchCommand}" />
+            </Grid>
+
+            <Grid ColumnDefinitions="*,Auto" ColumnSpacing="10">
+                <Picker Grid.Column="0"
+                        ItemsSource="{Binding Scales}"
+                        SelectedItem="{Binding SelectedScaleFilter}"
+                        Title="选择比例筛选" />
+                <Button Grid.Column="1"
+                        Text="筛选"
+                        Command="{Binding FilterByScaleCommand}" />
+            </Grid>
+        </VerticalStackLayout>
+
+        <!-- 状态消息 -->
+        <Label Grid.Row="1"
+               Text="{Binding StatusMessage}"
+               FontAttributes="Italic"
+               TextColor="Gray" />
+
+        <!-- 车模列表 -->
+        <CollectionView Grid.Row="2"
+                        ItemsSource="{Binding CarModels}"
+                        RefreshCommand="{Binding LoadDataCommand}"
+                        IsRefreshing="{Binding IsRefreshing}"
+                        IsPullToRefreshEnabled="True"
+                        SelectionMode="None">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame Margin="0,5" Padding="10" HasShadow="True">
+                        <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto,Auto,Auto">
+                            <!-- 品牌和车型 -->
+                            <Label Grid.Row="0" Grid.Column="0"
+                                   Text="{Binding Brand, StringFormat='{0} - {1}'}"
+                                   FontSize="18"
+                                   FontAttributes="Bold" />
+
+                            <!-- 比例和颜色 -->
+                            <Label Grid.Row="1" Grid.Column="0"
+                                   Text="{Binding Scale, StringFormat='比例：{0}'}"
+                                   TextColor="Gray" />
+                            <Label Grid.Row="1" Grid.Column="0"
+                                   Text="{Binding Color, StringFormat='颜色：{0}'}"
+                                   TextColor="Gray"
+                                   HorizontalOptions="End" />
+
+                            <!-- 购买信息 -->
+                            <Label Grid.Row="2" Grid.Column="0"
+                                   Text="{Binding PurchaseDate, StringFormat='购买日期：{0:yyyy-MM-dd}'}"
+                                   TextColor="Gray" />
+                            <Label Grid.Row="2" Grid.Column="0"
+                                   Text="{Binding PurchasePrice, StringFormat='价格：¥{0:F2}'}"
+                                   TextColor="Gray"
+                                   HorizontalOptions="End" />
+
+                            <!-- 数量和备注 -->
+                            <Label Grid.Row="3" Grid.Column="0"
+                                   Text="{Binding Quantity, StringFormat='数量：{0}'}"
+                                   TextColor="Gray" />
+
+                            <!-- 操作按钮 -->
+                            <HorizontalStackLayout Grid.Row="0" Grid.Column="1"
+                                                   Grid.RowSpan="4"
+                                                   Spacing="5"
+                                                   VerticalOptions="Center">
+                                <Button Text="编辑"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainViewModel}}, Path=EditCommand}"
+                                        CommandParameter="{Binding .}"
+                                        Padding="10,5"
+                                        FontSize="Small" />
+                                <Button Text="删除"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainViewModel}}, Path=DeleteCommand}"
+                                        CommandParameter="{Binding .}"
+                                        Padding="10,5"
+                                        FontSize="Small"
+                                        BackgroundColor="Red" />
+                            </HorizontalStackLayout>
+                        </Grid>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentPage>

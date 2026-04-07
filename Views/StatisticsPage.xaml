@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CarModelTracker.Views.StatisticsPage"
+             xmlns:vm="clr-namespace:CarModelTracker.ViewModels"
+             Title="统计概览">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="刷新" Command="{Binding LoadStatisticsCommand}" />
+    </ContentPage.ToolbarItems>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="20">
+            <!-- 总计卡片 -->
+            <Frame HasShadow="True" Padding="20" BackgroundColor="LightBlue">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="总数量" FontSize="14" TextColor="Gray" />
+                    <Label Text="{Binding TotalCount, StringFormat='{0} 个'}"
+                           FontSize="32"
+                           FontAttributes="Bold" />
+
+                    <BoxView HeightRequest="1"
+                             BackgroundColor="Gray"
+                             Margin="0,10" />
+
+                    <Label Text="总价值" FontSize="14" TextColor="Gray" />
+                    <Label Text="{Binding TotalValue, StringFormat='¥{0:F2}'}"
+                           FontSize="24"
+                           FontAttributes="Bold"
+                           TextColor="Green" />
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- 按品牌分组 -->
+            <Frame HasShadow="True" Padding="15">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="按品牌分组"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           TextColor="Blue" />
+                    <Label Text="{Binding BrandStatistics}"
+                           LineBreakMode="WordWrap" />
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- 按比例分组 -->
+            <Frame HasShadow="True" Padding="15">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="按比例分组"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           TextColor="Blue" />
+                    <Label Text="{Binding ScaleStatistics}"
+                           LineBreakMode="WordWrap" />
+                </VerticalStackLayout>
+            </Frame>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
