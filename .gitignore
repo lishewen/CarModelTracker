@@ -1,9 +1,30 @@
-﻿################################################################################
-# 此 .gitignore 文件已由 Microsoft(R) Visual Studio 自动创建。
-################################################################################
-
-.vs
-obj
+# Visual Studio
+.vs/
 *.user
 *.suo
-bin
+*.userosscache
+*.sln.docstates
+
+# Build outputs
+bin/
+obj/
+
+# MAUI
+*.apk
+*.aab
+*.ipa
+*.dSYM
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# NuGet
+*.nupkg
+packages/
