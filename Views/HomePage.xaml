@@ -209,13 +209,13 @@
                                                    Spacing="8"
                                                    VerticalOptions="Center">
                                 <Button Text="编辑"
-                                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainViewModel}}, Path=EditCommand}"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:HomeViewModel}}, Path=EditCommand}"
                                         CommandParameter="{Binding .}"
                                         BackgroundColor="{StaticResource Primary}"
                                         CornerRadius="8"
                                         Padding="16,10" />
                                 <Button Text="删除"
-                                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainViewModel}}, Path=DeleteCommand}"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:HomeViewModel}}, Path=DeleteCommand}"
                                         CommandParameter="{Binding .}"
                                         BackgroundColor="{StaticResource Error}"
                                         CornerRadius="8"

@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Shell xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-       xmlns:views="clr-namespace:CarModelTracker.Views"
-       x:Class="CarModelTracker.AppShell">
+       x:Class="CarModelTracker.AppShell"
+       xmlns:views="clr-namespace:CarModelTracker.Views">
 
-    <ShellContent
-        Title="车模收藏"
-        ContentTemplate="{DataTemplate views:MainPage}"
-        Route="MainPage" />
-
+    <TabBar>
+        <Tab Title="首页" Route="home">
+            <ShellContent ContentTemplate="{DataTemplate views:HomePage}" Route="home" />
+        </Tab>
+        <Tab Title="统计" Route="stats">
+            <ShellContent ContentTemplate="{DataTemplate views:StatisticsPage}" Route="stats" />
+        </Tab>
+        <Tab Title="设置" Route="settings">
+            <ShellContent ContentTemplate="{DataTemplate views:SettingsPage}" Route="settings" />
+        </Tab>
+    </TabBar>
 </Shell>

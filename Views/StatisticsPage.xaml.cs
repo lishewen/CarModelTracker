@@ -4,7 +4,18 @@ namespace CarModelTracker.Views;
 
 public partial class StatisticsPage : ContentPage
 {
-    private readonly StatisticsViewModel _viewModel;
+    private readonly StatisticsViewModel? _viewModel;
+
+    public StatisticsPage()
+    {
+        var db = Handler.MauiContext?.Services.GetRequiredService<IStatisticsService>();
+        if (db != null)
+        {
+            _viewModel = new StatisticsViewModel(db);
+            BindingContext = _viewModel;
+        }
+        InitializeComponent();
+    }
 
     public StatisticsPage(StatisticsViewModel viewModel)
     {
@@ -13,9 +24,12 @@ public partial class StatisticsPage : ContentPage
         BindingContext = viewModel;
     }
 
-    protected override void OnAppearing()
+    protected override async void OnAppearing()
     {
         base.OnAppearing();
-        _viewModel.LoadStatisticsCommand.Execute(null);
+        if (_viewModel != null)
+        {
+            await _viewModel.LoadStatisticsCommand.ExecuteAsync(null);
+        }
     }
 }
