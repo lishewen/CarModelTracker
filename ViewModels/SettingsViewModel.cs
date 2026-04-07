@@ -64,6 +64,6 @@ public partial class SettingsViewModel : ObservableObject
     [RelayCommand]
     private async Task ExportAsync()
     {
-        await Application.Current.MainPage.DisplayAlertAsync("导出", "导出功能开发中...", "确定");
+        await Application.Current.MainPage.DisplayAlert("导出", "导出功能开发中...", "确定");
     }
 }

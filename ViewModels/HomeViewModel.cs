@@ -141,7 +141,7 @@ public partial class HomeViewModel : ObservableObject
     {
         if (model == null) return;
 
-        var confirm = await Application.Current.MainPage.DisplayAlertAsync(
+        var confirm = await Application.Current.MainPage.DisplayAlert(
             "确认删除",
             $"确定要删除 \"{model.Brand} - {model.ModelName}\" 吗？",
             "删除",
@@ -157,7 +157,7 @@ public partial class HomeViewModel : ObservableObject
             }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlertAsync("删除失败", ex.Message, "确定");
+                await Application.Current.MainPage.DisplayAlert("删除失败", ex.Message, "确定");
             }
         }
     }

@@ -4,17 +4,18 @@ namespace CarModelTracker.Views;
 
 public partial class StatisticsPage : ContentPage
 {
-    private readonly StatisticsViewModel? _viewModel;
+    private StatisticsViewModel? _viewModel;
 
     public StatisticsPage()
     {
-        var db = Handler.MauiContext?.Services.GetRequiredService<IStatisticsService>();
-        if (db != null)
+        InitializeComponent();
+        
+        // 通过 DI 容器解析 ViewModel
+        if (Application.Current is IPlatformApplication app)
         {
-            _viewModel = new StatisticsViewModel(db);
+            _viewModel = app.Services.GetRequiredService<StatisticsViewModel>();
             BindingContext = _viewModel;
         }
-        InitializeComponent();
     }
 
     public StatisticsPage(StatisticsViewModel viewModel)

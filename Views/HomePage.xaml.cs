@@ -9,6 +9,13 @@ public partial class HomePage : ContentPage
     public HomePage()
     {
         InitializeComponent();
+        
+        // 通过 DI 容器解析 ViewModel
+        if (Application.Current is IPlatformApplication app)
+        {
+            _viewModel = app.Services.GetRequiredService<HomeViewModel>();
+            BindingContext = _viewModel;
+        }
     }
 
     public HomePage(HomeViewModel viewModel)
