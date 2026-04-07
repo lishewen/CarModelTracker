@@ -49,9 +49,6 @@ public static class MauiProgram
         var dbService = app.Services.GetRequiredService<IDatabaseService>();
         _ = dbService.GetAllAsync();
 
-        // 设置主页面为 Shell
-        Microsoft.Maui.Controls.Application.Current.MainPage = new AppShell();
-
         return app;
     }
 }
